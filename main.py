@@ -28,7 +28,7 @@ def try_encodings(file_path):
         except (UnicodeDecodeError, UnicodeError):
             continue
     
-    return 'utf-8'  # Default to UTF-8 if nothing else works
+    return 'utf-8'
 
 def detect_delimiter(file_path, encoding):
     common_delimiters = [',', '\t', ';', '|']
@@ -61,6 +61,9 @@ def merge_csv_to_excel(csv_files, progress_bar):
                 sheet_name = Path(csv_file.name).stem[:31]
                 ws = wb.create_sheet(title=sheet_name)
 
+                # Add the file name as the first row
+                ws.append([f"File Name: {csv_file.name}"])
+
                 with codecs.open(temp_file_path, 'r', encoding=encoding) as f:
                     reader = csv.reader(f, delimiter=delimiter)
                     for row in reader:
@@ -89,16 +92,18 @@ def main():
 
     if uploaded_files:
         if st.button("Merge Files"):
-            progress_bar = st.progress(0)
-            excel_data = merge_csv_to_excel(uploaded_files, progress_bar)
-            
-            st.download_button(
-                label="Download Merged File",
-                data=excel_data,
-                file_name="merged_output.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            )
-            progress_bar.empty()
+            with st.spinner("Merging files..."):
+                progress_bar = st.progress(0)
+                excel_data = merge_csv_to_excel(uploaded_files, progress_bar)
+                progress_bar.empty()
+                
+                st.success("Files merged successfully!")
+                st.download_button(
+                    label="Download Merged File",
+                    data=excel_data,
+                    file_name="merged_output.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
 
 if __name__ == "__main__":
     main()
