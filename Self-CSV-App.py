@@ -14,20 +14,6 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom CSS to make UI sleeker
-st.markdown("""
-    <style>
-    .stButton>button {
-        background-color: #0066cc;
-        color: white;
-        border-radius: 5px;
-    }
-    .stProgress .st-bo {
-        background-color: #0066cc;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
 def try_encodings(file_path):
     encodings = ['utf-8-sig', 'utf-16', 'utf-16le', 'utf-16be', 'utf-8', 'ascii', 'iso-8859-1', 'cp1252']
     
@@ -103,6 +89,20 @@ def merge_csv_to_excel(csv_files, progress_bar):
             return f.read()
 
 def main():
+    # Custom CSS to make UI sleeker
+    st.markdown("""
+        <style>
+        .stButton>button {
+            background-color: #0066cc;
+            color: white;
+            border-radius: 5px;
+        }
+        .stProgress .st-bo {
+            background-color: #0066cc;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
     st.title("Self CSV")
     
     st.markdown("""
