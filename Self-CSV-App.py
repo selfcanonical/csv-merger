@@ -7,6 +7,27 @@ from pathlib import Path
 import tempfile
 import codecs
 
+# Set page config
+st.set_page_config(
+    page_title="Self CSV - CSV to Excel Merger",
+    page_icon="📊",
+    layout="centered"
+)
+
+# Custom CSS to make UI sleeker
+st.markdown("""
+    <style>
+    .stButton>button {
+        background-color: #0066cc;
+        color: white;
+        border-radius: 5px;
+    }
+    .stProgress .st-bo {
+        background-color: #0066cc;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 def try_encodings(file_path):
     encodings = ['utf-8-sig', 'utf-16', 'utf-16le', 'utf-16be', 'utf-8', 'ascii', 'iso-8859-1', 'cp1252']
     
