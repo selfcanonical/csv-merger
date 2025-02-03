@@ -82,7 +82,23 @@ def merge_csv_to_excel(csv_files, progress_bar):
             return f.read()
 
 def main():
-    st.title("CSV Merger")
+    st.title("CSV Merger by Self Canonical")
+    
+    st.write("""
+    ### About
+    This tool merges multiple CSV files into a single Excel file, with each CSV becoming a separate sheet. 
+    
+    #### Features:
+    - Handles multiple CSV files at once
+    - Supports various encodings (UTF-8, UTF-16, etc.)
+    - Preserves original file names in each sheet
+    - Automatically detects file encoding and delimiters
+    
+    #### How to Use:
+    1. Click 'Browse files' to select your CSV files
+    2. Click 'Merge Files' to combine them
+    3. Download the merged Excel file
+    """)
 
     uploaded_files = st.file_uploader(
         "Choose CSV files", 
@@ -101,7 +117,7 @@ def main():
                 st.download_button(
                     label="Download Merged File",
                     data=excel_data,
-                    file_name="merged_output.xlsx",
+                    file_name="merged_files.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 )
 
